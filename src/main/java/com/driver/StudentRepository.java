@@ -19,11 +19,11 @@ public class StudentRepository {
         TeacherDb.put(teacher.getName(),teacher);
     }
     public void addStudentTeacherPair(String student, String teacher){
-  if(TeacherDb.containsKey(teacher)){
+       if(StudentTeacherDb.containsKey(teacher)){
       List<String>TeacherList = StudentTeacherDb.get(teacher);
       TeacherList.add(student); //add given student into given teacherslist
       StudentTeacherDb.put(teacher,TeacherList);
-  }
+        }
   else {
       List<String>TeacherList = new ArrayList<>();
       TeacherList.add(teacher);
