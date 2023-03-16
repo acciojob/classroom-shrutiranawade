@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 @Repository
@@ -19,26 +20,37 @@ public class StudentRepository {
         TeacherDb.put(teacher.getName(),teacher);
     }
     public void addStudentTeacherPair(String student, String teacher){
+        List<String>studentList = new ArrayList<>();
         if (StudentTeacherDb.containsKey(teacher)){
-      List<String>TeacherList = StudentTeacherDb.get(teacher);
-      TeacherList.add(student); //add given student into given teacherslist
-      StudentTeacherDb.put(teacher,TeacherList);
+            studentList = StudentTeacherDb.get(teacher);
+            studentList.add(student); //add given student into given teacherslist
+      StudentTeacherDb.put(teacher,studentList);
         }
   else {
-      List<String>TeacherList = new ArrayList<>();
-      TeacherList.add(teacher);
-      StudentTeacherDb.put(teacher,TeacherList);
+      //List<String>TeacherList = new ArrayList<>();
+      studentList.add(teacher);
+      StudentTeacherDb.put(teacher,studentList);
   }
     }
     public Student getStudentByName(String name){
-     return StudentDb.get(name);
+     for(String s : StudentDb.keySet()){
+         if(s.equals(name))return StudentDb.get(name);
+     }
+        return null;
     }
     public Teacher getTeacherByName(String name){
-        return TeacherDb.get(name);
+        for (String t : TeacherDb.keySet()){
+        if(t.equals(name))
+            return TeacherDb.get(name);
+        }
+        return null;
     }
 
     public List<String>getStudentsByTeacherName(String teacher){
+        List<String>studentList = new ArrayList<>();
+        if(StudentTeacherDb.containsKey(teacher))
         return StudentTeacherDb.get(teacher);
+        return studentList;
     }
     public List<String>getAllStudents(){
         List<String>list = new ArrayList<>();
@@ -48,21 +60,33 @@ public class StudentRepository {
         return list;
     }
     public void deleteTeacherByName(String teacher){
-        List<String>studentlist = StudentTeacherDb.get(teacher);
-        for (String s : studentlist){
-            StudentDb.remove(s);
+        List<String>studentlist = new ArrayList<>();
+        if (StudentTeacherDb.containsKey(teacher)){
+            studentlist = StudentTeacherDb.get(teacher);
+            for (String s : studentlist){
+                if (StudentDb.containsKey(s))
+                StudentDb.remove(s);
+            }
         }
+ if(TeacherDb.containsKey(teacher))TeacherDb.remove(teacher);
+
         StudentTeacherDb.remove(teacher);
-        TeacherDb.remove(teacher);
+
     }
     public void deleteAllTeachers(){
-       for(List<String>studentlist : StudentTeacherDb.values()){
-           for (String st : studentlist){
+        TeacherDb = new HashMap<>();
+        HashSet<String> studentSet = new HashSet<>();
+ for (String tname : StudentTeacherDb.keySet()){
+     for (String sname : StudentTeacherDb.get(tname)){
+         studentSet.add(sname);
+     }
+ }
+           for (String st : studentSet){
+               if (StudentDb.containsKey(st))
                StudentDb.remove(st);
            }
-           TeacherDb.clear();
-           StudentTeacherDb.clear();
+   StudentTeacherDb = new HashMap<>();
        }
     }
 
-}
+

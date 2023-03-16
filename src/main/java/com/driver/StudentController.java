@@ -22,13 +22,13 @@ public class StudentController {
     StudentService studentService;
 
     @PostMapping("/add-student")
-    public ResponseEntity<String> addStudent(@RequestBody Student student){
+    public ResponseEntity<String>addStudent(@RequestBody Student student){
     studentService.addStudent(student);
         return new ResponseEntity<>("New student added successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/add-teacher")
-    public ResponseEntity<String> addTeacher(@RequestBody Teacher teacher){
+    public ResponseEntity<String>addTeacher(@RequestBody Teacher teacher){
            studentService.addTeacher(teacher);
         return new ResponseEntity<>("New teacher added successfully", HttpStatus.CREATED);
     }
@@ -62,9 +62,9 @@ public class StudentController {
 
     @GetMapping("/get-all-students")
     public ResponseEntity<List<String>> getAllStudents(){
-        List<String> students = null; // Assign list of student by calling service layer method
-          students = studentService.getAllStudents();
-        return new ResponseEntity<>(students, HttpStatus.CREATED);
+        List<String> StudentList = null; // Assign list of student by calling service layer method
+          StudentList = studentService.getAllStudents();
+        return new ResponseEntity<>(StudentList, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete-teacher-by-name")
