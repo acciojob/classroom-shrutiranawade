@@ -40,10 +40,10 @@ public class StudentController {
     }
 
     @GetMapping("/get-student-by-name/{name}")
-    public ResponseEntity<String>getStudentByName(@PathVariable String name){
+    public ResponseEntity<Student>getStudentByName(@PathVariable String name){
         Student student = null; // Assign student by calling service layer method
           student = studentService.getStudentByName(name);
-        return new ResponseEntity<>( "Student -Teacher Pair added successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>( student, HttpStatus.CREATED);
     }
 
     @GetMapping("/get-teacher-by-name/{name}")
