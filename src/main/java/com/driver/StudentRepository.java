@@ -20,16 +20,16 @@ public class StudentRepository {
         TeacherDb.put(teacher.getName(),teacher);
     }
     public void addStudentTeacherPair(String student, String teacher){
-        List<String>studentList = new ArrayList<>();
+        List<String>students= new ArrayList<>();
         if (StudentTeacherDb.containsKey(teacher)){
-            studentList = StudentTeacherDb.get(teacher);
-            studentList.add(student); //add given student into given teacherslist
-      StudentTeacherDb.put(teacher,studentList);
+            students = StudentTeacherDb.get(teacher);
+            students.add(student); //add given student into given teacherslist
+      StudentTeacherDb.put(teacher,students);
         }
   else {
       //List<String>TeacherList = new ArrayList<>();
-      studentList.add(teacher);
-      StudentTeacherDb.put(teacher,studentList);
+      students.add(teacher);
+      StudentTeacherDb.put(teacher,students);
   }
     }
     public Student getStudentByName(String name){
