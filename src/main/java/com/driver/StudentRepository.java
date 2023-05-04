@@ -64,11 +64,11 @@ public class StudentRepository {
         return list;
     }
     public void deleteTeacherByName(String teacher){
-        List<String>studentlist = new ArrayList<>();
+        List<String> studentNames = new ArrayList<>();
         if (StudentTeacherDb.containsKey(teacher)){
-            studentlist = StudentTeacherDb.get(teacher);
-            for (String s : studentlist){
-                 if (StudentDb.containsKey(s))
+
+            for (String s : StudentTeacherDb.get(teacher)){
+
                 StudentDb.remove(s);
             }
         }
@@ -79,10 +79,10 @@ public class StudentRepository {
 
     }
     public void deleteAllTeachers(){
-        TeacherDb = new HashMap<>();
-        HashSet<String> studentSet = new HashSet<>();
- for (String tname : TeacherDb.keySet()){
-           deleteTeacherByName(tname);
+        //TeacherDb = new HashMap<>();
+       // HashSet<String> studentSet = new HashSet<>();
+ for (String tName : TeacherDb.keySet()){
+           deleteTeacherByName(tName);
              }
  }
 
